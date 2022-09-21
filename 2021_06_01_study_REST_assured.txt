@@ -248,11 +248,11 @@ I have created:
 
 curl --location \
 --request GET 'https://api.getpostman.com/workspaces' \
---header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3'
+--header 'X-Api-Key: <X_API_KEY_VALUE>'
 
 rkremers@BKWI_C02ZX41RMD6R:sas (filter)$ curl --location \
 > --request GET 'https://api.getpostman.com/workspaces' \
-> --header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3' | jq .
+> --header 'X-Api-Key: <X_API_KEY_VALUE>' | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   284  100   284    0     0    430      0 --:--:-- --:--:-- --:--:--   429
@@ -691,7 +691,7 @@ PUT {{baseUrl}}/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e
 Body:
 curl --location \
 --request PUT 'https://api.getpostman.com/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e' \
---header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3' \
+--header 'X-Api-Key: <X_API_KEY_VALUE>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "workspace": {
@@ -726,7 +726,7 @@ The DELETE method can not be cached because the content will be deleted.
 
 curl --location \
 --request DELETE 'https://api.getpostman.com/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e' \
---header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3'
+--header 'X-Api-Key: <X_API_KEY_VALUE>'
 
 Response:
 
@@ -759,7 +759,7 @@ This is a readonly, non-cacheable request.
 
 curl --location \
 --request OPTIONS 'https://api.getpostman.com/workspaces/' \
---header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3'
+--header 'X-Api-Key: <X_API_KEY_VALUE>'
 
 --> In this case there is no response body.
 --> Look at the Headers:
@@ -2365,7 +2365,7 @@ After sending the request:
         "host": "postman-echo.com",
         "x-amzn-trace-id": "Root=1-6105512d-7f8ca1bd13f294430c43b6fe",
         "content-length": "25",
-        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "x-api-key": "<X_API_KEY_VALUE>",
         "content-type": "application/json; charset=utf-8",
         "user-agent": "PostmanRuntime/7.28.2",
         "accept": "*/*",
@@ -2405,7 +2405,7 @@ POST http://postman-echo.com/post?foo1=bar1&foo2=bar2
         "host": "postman-echo.com",
         "x-amzn-trace-id": "Root=1-6105540d-13ba125b2de00d32150b9e65",
         "content-length": "25",
-        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "x-api-key": "<X_API_KEY_VALUE>",
         "content-type": "application/json; charset=utf-8",
         "user-agent": "PostmanRuntime/7.28.2",
         "accept": "*/*",
@@ -2567,7 +2567,7 @@ As an example:
         "host": "postman-echo.com",
         "x-amzn-trace-id": "Root=1-6106edd8-2495f2952327b7cc0e05cae0",
         "content-length": "185",
-        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "x-api-key": "<X_API_KEY_VALUE>",
         "content-type": "multipart/form-data; boundary=--------------------------761507422595210622726132",
         "user-agent": "PostmanRuntime/7.28.2",
         "accept": "*/*",
@@ -2733,7 +2733,7 @@ key 1=value 1 # The space will be replaced by %20 == the ANSII code for a space 
 key%201=value%201
 
 curl --location --request POST 'http://postman-echo.com/post?foo1=bar1&foo2=bar2&foo3=space example' \
---header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3' \
+--header 'X-Api-Key: <X_API_KEY_VALUE>' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --header 'Cookie: sails.sid=s%3AGOuQ7e_eEIgneDSO86FejzpBMCuzsDcQ.3COcw1ynK1%2BB%2BCBA1ZRRdMHV730MrTfa5PjoKZNHolo' \
 --data-urlencode 'key1=value1'
@@ -2756,7 +2756,7 @@ Response:
         "host": "postman-echo.com",
         "x-amzn-trace-id": "Root=1-61079427-695779ad39ea36724d06bc33",
         "content-length": "11",
-        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "x-api-key": "<X_API_KEY_VALUE>",
         "content-type": "application/x-www-form-urlencoded",
         "user-agent": "PostmanRuntime/7.28.2",
         "accept": "*/*",

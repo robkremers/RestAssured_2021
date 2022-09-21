@@ -1,0 +1,7 @@
+{
+  "workspace": {
+    "name": "MySixthWorkspace",
+    "type": "personal",
+    "description": "workspace for BDD Style testing the POST HTTP method"
+  }
+}
