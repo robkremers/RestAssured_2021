@@ -1,0 +1,3677 @@
+Topic: Study REST Assured
+Date : 2021-06-01.
+
+
+2021_06_01_study_REST_assured.txt
+
+Instructor:
+Omprakash Chavan
+Test Automation Lead
+REST Assured API Automation from scratch + Framework + CL
+
+How to contact:
+
+For issues, utilize the Q&A section. Share as many details as you can for faster resolution.
+
+For general queries (discount, etc.), connect with me on LinkedIn (check my instructor profile for the link)
+
+Resources:
+- https://rest-assured.io/
+- https://rest-assured.io/#docs
+- https://github.com/rest-assured/rest-assured/wiki/GettingStarted#contents
+- https://github.com/rest-assured/rest-assured/wiki/Usage#contents
+- https://javadoc.io/static/io.rest-assured/rest-assured/4.4.0/index.html?overview-summary.html
+- https://www.javadoc.io/static/io.rest-assured/spring-mock-mvc/4.4.0/index.html
+- https://www.javadoc.io/static/io.rest-assured/json-path/4.4.0/index.html?io/restassured/path/json/JsonPath.html
+- https://www.javadoc.io/static/org.testng/testng/6.9.4/index.html
+
+- http://hamcrest.org/JavaHamcrest/javadoc/2.1/
+
+https://stackoverflow.com/questions/22658599/how-to-set-the-rest-assured-basepath-through-requestspecbuilder-or-requestspecif
+  - Details about the general setup of a Rest Assured test in order to improve readability.
+
+- https://www.baeldung.com/maven-download-sources-javadoc
+  - Gives a method to download via maven the JavaDoc's.
+    This will give local access in the IDE.
+
+- https://stackoverflow.com/questions/12532339/no-appenders-could-be-found-for-loggerlog4j/21508296
+  - Added the log4j.properties file
+    - The directory was already added to the classpath.
+
+
+---------------------------------------------------------------------------------------------------
+2021-06-03:
+
+Section 2: API Essentials
+
+Ch. 3. What is API?
+
+Application Programmers Interface
+- Exposure the functionality of an application.
+
+Ch. 4. What is REST API?
+
+REST = Representational State Transfer.
+
+REST Constraints:
+- Client Server
+	- Allows the client to speak in their own language and still being able to communicate.
+- Stateless
+	- Allows the API's to be independent from each other.
+	- No state is maintained; i.e. no data is maintained anywhere with regards to the API's after they have finished.
+- Cache
+	- Allows data storage at the client end for better performance.
+- Uniform Interface
+- Layered System
+- Code on Demand
+
+Ch. 5. What is JSON
+
+JSON = JavaScript Object Notation
+
+- Leightweight
+- Humanly readable
+- Easy to understand
+- Key - Value pairs
+- Language agnostic
+	- So can be used with every programming language.
+
+--> Preferred communication method between systems / languages.
+
+Ch. 6. REST vs HTTP
+
+HTTP = Hypertext Transfer Protocol
+- Is the protocol used to transfer data over the web.
+- Is on top of the network protocol stack.
+- Uses the client-server architecture.
+
+REST will use the HTTP protocol.
+Technically REST can use any other protocol.
+REST is the architectural design.
+HTTP is the application protocol.
+
+REST leverages the HTTP protocol in order to transfer data over the internet.
+REST uses for this purpose the various HTTP methods (GET, POST, PUT, etc.)
+
+Ch. 7. API Request Anatomy.
+
+REST API Request:
+
+GET https://api.getpostman.com/workspaces/id
+--> URL = Uniform Resource Locator.
+	- https://api.getpostman.com
+		- Base url (will remain the same for all requests)
+	- /workspaces
+		- Endpoint
+	- /id
+		- Path Parameter
+	- Specifies:
+		- The location in the internet network.
+		- A method for retrieving the resource.
+
+For our purposes we will use Postman as client.
+
+- In this case we are retrieving the resource called workspace, identified with the id.
+
+GET = HTTP API method
+- Defines how to interact with the resource.
+
+
+Quiz 1.
+
+- JSON = JavaScript Object Notation
+- REST = Architectural Design.
+- GET and POST are HTTP methods.
+
+
+---------------------------------------------------------------------------------------------------
+Section 3: Postman Essentials
+
+Ch. 8. Install
+
+- https://www.postman.com/
+- https://www.postman.com/downloads/
+
+$ brew install --cask postman
+
+(It was already installed but I want the latest version)
+
+Updating to version 8.5.1.
+
+For additional information:
+- Youtube: Postman tutorial 2020
+	--> LOT's OF INFORMATION
+	- Look at it this evening.
+
+Apparently I'm already logged in with robkremers2014@gmail.com
+
+Start by:
+- Create a new workspace
+- Create a new request.
+
+Ch. 9. Walkthrough
+
+https://api.postman.com/workspaces
+
+Create environment REST_Assured_Environment
+Variable	Initial value
+baseUrl		https://api.getpostman.com
+
+Now I can select this environment under 'No Environment'
+
+Use:
+
+GET: {{baseUrl}}/workspaces
+
+The actual value of baseUrl becomes visible when you hover over the parameter with the mouse.
+
+--> Send
+
+Result:
+
+{
+    "error": {
+        "name": "AuthenticationError",
+        "message": "Invalid API Key. Every request requires a valid API Key to be sent."
+    }
+}
+
+Ch. 10.Generate API Key.
+
+The API Key is connected with our Postman account.
+
+--> Account Settings
+--> Postman API Keys
+	- Create API Key: 
+		- Name		: REST_Assured_Study_key
+		- API Key 	: PMAK-60bdc2e9373e5c0035cb614b-e1d5147264bd462b92045f81945dce4a4e
+	- The key will only be visible during the created. Later it will be encrypted.
+
+
+--> Go to the environment
+	Variable:
+		- api_key
+		- Initial Value: PMAK-60be82a8f120f500350530bd-2fff1d21df9f53c9926e75105a22301e67
+
+
+https://learning.postman.com/docs/developer/intro-api/
+
+	You will need to authenticate your requests to the Postman API by sending your API Key in the X-Api-Key header of every request you make.
+	Your API Key provides access to any Postman data you have permissions for.
+	You can store your API key in an environment variable—if you name it postman-api-key the Postman API collection will use it automatically
+
+	Access to the API using a key is limited to 60 requests per minute.
+
+
+Ch. 11. API Documentation
+
+Settings
+--> Documentation
+	--> https://learning.postman.com/docs/getting-started/introduction/
+
+
+https://learning.postman.com/docs/developer/intro-api/
+--> Postman API.
+	--> https://www.postman.com/postman/workspace/postman-public-workspace/request/12959542-d83ff273-a023-4d7c-a7cc-3699e5880ed6
+
+View this video again.
+
+Ch. 12. Execute GET Request
+
+--> I keep receiving:
+
+{{baseUrl}}/workspaces?X-Api-Key={{postman-api-key}}
+
+{
+    "error": {
+    "name": "AuthenticationError",
+    "message": "Invalid API Key. Every request requires a valid API Key to be sent."
+}
+
+--> Continue here tomorrow.
+
+https://learning.postman.com/docs/developer/intro-api/
+
+Authentication
+You will need to authenticate your requests to the Postman API by sending your API Key in the X-Api-Key header of every request you make.
+
+Your API Key provides access to any Postman data you have permissions for.
+
+I have created:
+- Postman Essentails Workspace
+	- Postman Essentials Collection
+		getPostmanWorkspaces
+	- Postman Essentials Environment
+		- baseUrl
+		- apiKey
+
+
+curl --location \
+--request GET 'https://api.getpostman.com/workspaces' \
+--header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3'
+
+rkremers@BKWI_C02ZX41RMD6R:sas (filter)$ curl --location \
+> --request GET 'https://api.getpostman.com/workspaces' \
+> --header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3' | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   284  100   284    0     0    430      0 --:--:-- --:--:-- --:--:--   429
+{
+  "workspaces": [
+    {
+      "id": "5a7edc8d-9407-4010-8935-31e851c39449",
+      "name": "My Workspace",
+      "type": "personal"
+    },
+    {
+      "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+      "name": "Postman Essentials Workspace",
+      "type": "team"
+    },
+    {
+      "id": "efbb8b92-6110-4e3a-8c6e-81e8b511fe9d",
+      "name": "Team Workspace",
+      "type": "team"
+    }
+  ]
+}
+
+
+---------------------------------------------------------------------------------------------------
+2021-06-08:
+
+Section 4: JSON Essentials
+
+Ch. 13. JSON Syntax and Data Types
+
+Resources:
+- JsonSample.json
+
+{
+  "firstName": "Larry",
+  "lastName": "Sheen",
+  "age": 30,
+  "children": [],
+  "spouse": null,
+  "vehicle": true,
+  "address": {
+    "street": "6301 Richardson Drive",
+    "city": "New York City",
+    "state": "New York",
+    "zipCode": "65027"
+  },
+  "phoneNumbers": [
+    {
+      "type": "mobile",
+      "number": "543 666-6794"
+    },
+    {
+      "type": "home",
+      "number": "555 650-2200"
+    }
+  ]
+}
+
+
+www.jsonpathfinder.com
+
+Content:
+- Overview of how a json file is built.
+
+Ch. 14. Fetch JSON using Groovy's GPath.
+
+Resources:
+- https://github.com/rest-assured/rest-assured
+- https://github.com/rest-assured/rest-assured/wiki/GettingStarted
+	- http://groovy-lang.org/processing-xml.html#_gpath
+- https://groovy-lang.org/json.html
+	- https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#gpath_expressions
+- http://groovy-playground.appspot.com/
+	- Site for testing json files groovy-style.
+- https://github.com/json-path/JsonPath
+
+https://github.com/rest-assured/rest-assured/wiki/GettingStarted
+
+JsonPath
+
+Standalone JsonPath (included if you depend on the rest-assured artifact). Makes it easy to parse JSON documents. Note that this JsonPath implementation uses Groovy's GPath syntax and is not to be confused with Kalle Stenflo's JsonPath implementation.
+
+Maven:
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-path</artifactId>
+      <version>4.4.0</version>
+      <scope>test</scope>
+</dependency>
+
+XmlPath
+
+Stand-alone XmlPath (included if you depend on the rest-assured artifact). Makes it easy to parse XML documents.
+
+Maven:
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>xml-path</artifactId>
+      <version>4.4.0</version>
+      <scope>test</scope>
+</dependency>
+
+
+JSON Schema Validation
+
+If you want to validate that a JSON response conforms to a Json Schema you can use the json-schema-validator module:
+
+Maven:
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>4.4.0</version>
+      <scope>test</scope>
+</dependency>
+
+Spring Mock Mvc
+
+If you're using Spring Mvc you can now unit test your controllers using the RestAssuredMockMvc API in the spring-mock-mvc module. For this to work you need to depend on the spring-mock-mvc module:
+
+Maven:
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>spring-mock-mvc</artifactId>
+      <version>4.4.0</version>
+      <scope>test</scope>
+</dependency>
+
+
+Spring Web Test Client
+
+If you're using Spring Webflux you can now unit test your reactive controllers using the RestAssuredWebTestClient API in the spring-mock-mvc module. For this to work you need to depend on the spring-web-test-client module:
+
+Maven:
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>spring-web-test-client</artifactId>
+      <version>4.4.0</version>
+      <scope>test</scope>
+</dependency>
+
+- http://groovy-lang.org/processing-xml.html#_gpath
+
+
+Parsing a JSON string means:
+- recursively convert into a list of map of objects.
+
+- https://groovy-lang.org/json.html
+	- https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#gpath_expressions
+
+http://groovy-playground.appspot.com/
+--> Used for testing a json object. For an example see below.
+
+import groovy.json.JsonSlurper
+
+def object = new JsonSlurper().parseText(
+    '''
+ {
+  "firstName": "Larry",
+  "lastName": "Sheen",
+  "age": 30,
+  "children": [],
+  "spouse": null,
+  "vehicle": true,
+  "address": {
+    "street": "6301 Richardson Drive",
+    "city": "New York City",
+    "state": "New York",
+    "zipCode": "65027"
+  },
+  "phoneNumbers": [
+    {
+      "type": "mobile",
+      "number": "543 666-6794"
+    },
+    {
+      "type": "home",
+      "number": "555 650-2200"
+    }
+  ]
+}   
+    '''
+)
+
+def query = object.address.street
+def query = object.phoneNumbers[0]
+def query = object.phoneNumbers.number # Now the bracket is returned: both phonenumbers will be displayed.
+
+
+Ch. 15. Fetch JSON using JayWay's JsonPath
+
+Resources:
+- https://github.com/json-path/JsonPath
+	- Jayway JsonPath A Java DSL for reading JSON documents.
+- https://jsonpath.com/
+
+
+Ch. 16. Groovy's GPath Vs. JayWay's JsonPath
+
+https://github.com/rest-assured/rest-assured/wiki/GettingStarted#jsonpath
+
+JsonPath implementation uses Groovy's GPath syntax and is not to be confused with Kalle Stenflo's JsonPath implementation.
+
+Maven:
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-path</artifactId>
+      <version>4.4.0</version>
+      <scope>test</scope>
+</dependency>
+
+Find all phone numbers in the example:
+- Groovy:
+	def query = object.phoneNumbers.number
+- JsonPath:
+	$.phoneNumbers..number
+
+
+Quiz 2. 
+Question 1:
+JSON key can be a String or an Integer
+- False
+Question 2:
+JSON cannot have two keys with same name
+- True
+Question 3:
+REST Assured includes JsonPath implementation that uses
+- Groovy's GPATH syntax.
+Question 4:
+JsonSlurper is a
+- Class
+
+Question 5:
+From below JSON, query to fetch "my address" as a String is
+import groovy.json.JsonSlurper
+
+def object = new JsonSlurper().parseText(
+    '''
+{
+	"address": [
+		[
+			{
+				"address": {
+					"address": "my address"
+				}
+			}
+		]
+	]
+} 
+    '''
+)
+
+def query = object.address[0][0].address.address
+# There is an array within the array!!!
+
+Groovy's GPATH expression and JayWay's expression always result in the same query
+- Although both use dot notations, queries can be different
+
+---------------------------------------------------------------------------------------------------
+2021-06-08:
+
+Section 5: HTTP Essentials
+
+Ch. 17. HTTP Concepts: Safe, Idempotent and Cacheable.
+
+Resources:
+- https://www.iana.org/assignments/http-methods/http-methods.xhtml
+	- 39 methods are available.
+- https://medium.com/maverick-labs/a-quick-overview-of-http-methods-51098b1300bd
+
+
+The more often used methods: See also Overview_HTTP_methods.xlsx
+METHOD 		Description 																		                                     Request body Response body Safe Idempotent Cacheable
+GET       Transfer a current representation of the target resource 								               No 			    Yes 		    Yes 	 Yes 	       Yes
+HEAD      Same as GET, but only transfer the status line and header sections 						         No  		       No 			   Yes 	 Yes 	       Yes
+POST 		  Perform resource-specific processing on the request payload 							            Yes 		      Yes 		    No 		 No 		   In some cases
+PUT 		  Replace all current representations of the target payload with the request payload 		Yes 		       No 			    No 		Yes 	      No
+DELETE 		Remove all current representations of the target resource 								           Optional 	    Optional 	    No 		Yes 	      No
+CONNECT 	Establish a tunnel to the service identified by the target resource 					        No  		      Yes 		    No 		 No 		       No
+OPTIONS 	Describe the communication options for the target resource 								            No 			      Yes 		    Yes 	 Yes 	         No
+TRACE 		Perform a message loop-back test along the path to the target resource 					      No 			      No 			    Yes 	 Yes 	         No
+PATCH 		Perform partial modification of the target resource. 									                Yes 		      Yes 		    No 		 No 		     No
+
+Safe 		    : means that no data on the server will be updated.
+Itempotent  : The use of the method will not affect the outcome of the response.
+Cacheable 	: This means that the server can cache the response. This will affect the performance.
+
+
+Ch. 18. GET
+
+Example:
+- Postman:
+  - GET {{baseUrl}}/workspaces/
+
+{
+    "workspaces": [
+        {
+            "id": "5a7edc8d-9407-4010-8935-31e851c39449",
+            "name": "My Workspace",
+            "type": "personal"
+        },
+        {
+            "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+            "name": "Postman Essentials Workspace",
+            "type": "team"
+        },
+        {
+            "id": "efbb8b92-6110-4e3a-8c6e-81e8b511fe9d",
+            "name": "Team Workspace",
+            "type": "team"
+        }
+    ]
+}
+
+  - GET {{baseUrl}}/workspaces/7fcf506e-2dfa-4530-ba94-78a0a315a86b # the ID of Postman Essentials Workspace
+{
+    "workspace": {
+        "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+        "name": "Postman Essentials Workspace",
+        "type": "team",
+        "description": null,
+        "collections": [
+            {
+                "id": "d51ca0ce-b167-4df8-8228-60ddc003e009",
+                "name": "Postman Essentials Collection",
+                "uid": "2814220-d51ca0ce-b167-4df8-8228-60ddc003e009"
+            }
+        ],
+        "environments": [
+            {
+                "id": "45abc7d9-27f8-41e5-aff1-17cd232e6093",
+                "name": "Postman Essentials Environment",
+                "uid": "2814220-45abc7d9-27f8-41e5-aff1-17cd232e6093"
+            }
+        ]
+    }
+}
+
+--> Now you also have the collections of requests and the environments.
+
+In the case of GET no response body, because this is not required.
+
+
+Ch. 19. HEAD
+
+HEAD
+
+Same as GET, but only transfer the status line and header sections 
+
+HEAD requests are used to retrieve just the headers that would be present in the response of an equivalent GET call. 
+It could be used simply to check whether or not a resource exists, or to retrieve the Content-Length Header before deciding whether or not to download a large file. 
+You could also check the Last-Modified header to see if the file was modified since you last retrieved it. 
+The HEAD method is safe. 
+All safe methods are also idempotent since doing nothing once has the same effect as doing nothing multiple times.
+
+- No request body
+- No response body.
+
+Useful e.g. if you want to check in advance how large the response body of a GET will be.
+
+Only returned are:
+- HTTP status (200 OK)
+- Header content
+
+Ch. 20. POST
+
+Perform resource-specific processing on the request payload 
+
+POST
+
+POST requests are used to submit data to the server. 
+POST requests may contain a data payload to be submitted to the server. 
+The action performed by the server is determined by the server code. 
+POST requests may be used to create a new resource or to submit data for processing.
+
+
+POST {{baseUrl}}/workspaces/
+- Additional header:
+  - X-Api-Key: {{apiKey}}
+
+# The "id" should not be added, because Postman will create a new value. But adding an "id" at this POST will for Postman not cause an error.
+{
+    "workspace": {
+        "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+        "name": "Another Workspace",
+        "type": "personal",
+        "description": "workspace for testing the POST HTTP method"
+    }
+}
+
+Response:
+{
+    "workspace": {
+        "id": "454d8e61-a754-490b-8534-18c4c6f5860e",
+        "name": "Another Workspace"
+    }
+}
+
+--> Now: GET {{baseUrl}}/workspaces/
+  --> The new workspace will be visible now.
+--> GET {{baseUrl}}/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e
+
+Response:
+{
+    "workspace": {
+        "id": "454d8e61-a754-490b-8534-18c4c6f5860e",
+        "name": "Another Workspace",
+        "type": "personal",
+        "description": "workspace for testing the POST HTTP method"
+    }
+}
+
+--> For Postman a response for a specific workspace will return more information if there is any (but again: this is a Postman API feature).
+
+Ch. 21. PUT
+
+PUT   Replace all current representations of the target payload with the request payload.
+
+PUT
+
+PUT requests are used to save an object at the location specified in the request URI. 
+PUT requests should be idempotent. 
+  That means that if two or more identical PUT requests are received and executed, the result should be equivalent to executing such a request only once. 
+  To draw an analogy, a=5 is an idempotent operation since running it once or multiple times results in the value of a being 5. In contrast, a=a+1 is not an idempotent operation, since the value of a changes based on how many times we execute the operation.
+
+A PUT request is not safe because it overwrites data.
+
+PUT {{baseUrl}}/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e
+
+Body:
+curl --location \
+--request PUT 'https://api.getpostman.com/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e' \
+--header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "workspace": {
+        "id": "454d8e61-a754-490b-8534-18c4c6f5860e",
+        "name": "Another Workspace2",
+        "type": "personal",
+        "description": "workspace for testing the POST HTTP method"
+    }
+}'
+
+Response:
+{
+    "workspace": {
+        "id": "454d8e61-a754-490b-8534-18c4c6f5860e",
+        "name": "Another Workspace2"
+    }
+}
+--> The existing workspace with id = "454d8e61-a754-490b-8534-18c4c6f5860e" has received a new name: "Another Workspace" -> "Another Workspace2"
+
+It's idempotent because repeats of the POST will give the same result.
+
+Ch. 22. DELETE
+
+DELETE  Remove all current representations of the target resource 
+
+DELETE requests are used to delete the object at the location specified in the request URI. DELETE requests are also idempotent.
+
+The Request and Response body are optional.
+So in our case the id would be enough to delete the workspace with that id.
+
+The DELETE method can not be cached because the content will be deleted.
+
+curl --location \
+--request DELETE 'https://api.getpostman.com/workspaces/454d8e61-a754-490b-8534-18c4c6f5860e' \
+--header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3'
+
+Response:
+
+{
+    "workspace": {
+        "id": "454d8e61-a754-490b-8534-18c4c6f5860e"
+    }
+}
+
+If trying to execute a 2nd time:
+
+{
+    "error": {
+        "name": "instanceNotFoundError",
+        "message": "The specified workspace does not exist."
+    }
+}
+
+HTTP status: 404 Not Found.
+
+
+Ch. 23. OPTIONS
+
+OPTIONS Describe the communication options for the target resource 
+
+Usually it is used as pre-flight request and using the response to make the real request.
+- e.g. knowing which headers are request.
+
+This is a readonly, non-cacheable request.
+
+curl --location \
+--request OPTIONS 'https://api.getpostman.com/workspaces/' \
+--header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3'
+
+--> In this case there is no response body.
+--> Look at the Headers:
+  - Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+  - Access-Control-Allow-Headers: content-type,x-api-key
+
+  --> So we know that we have to make known the content-type and fill in x-api-key
+
+  Ch. 24. PATCH
+
+  PATCH   Perform partial modification of the target resource. 
+
+
+  https://www.postman.com/postman/workspace/postman-public-workspace/folder/12959542-082c1f3c-34c2-4525-8880-5411eecd575b?ctx=documentation
+  --> You can see that no PATCH HTTP method has been defined.
+
+  For testing this use e.g. https://jsonplaceholder.typicode.com/posts/1
+  --> Setup by the course author.
+
+
+  CH. 25. Status Codes
+
+  Resources:
+  - https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+  All HTTP response status codes are separated into five classes or categories.
+  The first digit of the status code defines the class of response, while the last two digits do not have any classifying or categorization role. 
+  There are five classes defined by the standard:
+
+  - 1xx informational response – the request was received, continuing process
+  - 2xx successful – the request was successfully received, understood, and accepted
+  - 3xx redirection – further action needs to be taken in order to complete the request
+  - 4xx client error – the request contains bad syntax or cannot be fulfilled
+  - 5xx server error – the server failed to fulfil an apparently valid request
+
+Ch. 26. Status Codes - Live Examples
+
+Using https://reqres.in/ for examples
+
+Quiz 3
+
+- DELETE is idempotent
+  - True
+- GET method can be used to create a new resource
+  - Yes
+    Yes, this is true, but this is not at all recommended. 
+    REST is an architectural design and it specifies certain guidelines. 
+    Whether to follow or not, is up to the development team. 
+    Most of the times, teams strictly follow what is recommended, but some times there can be poorly designed REST APIs.
+- Caching helps increase API performance
+  - True
+- OPTIONS is cacheable
+  - False
+- Why is PUT idempotent
+  -
+- 4xx status codes represent server side issues
+  - False
+
+---------------------------------------------------------------------------------------------------
+2021-06-11:
+
+Section 6: Postman Mock Server
+
+Ch. 27. Setup Mock Server with Multiple Examples.
+
+Purpose:
+- Mock the server API's of a project.
+
+Resources:
+- https://www.postman.com/features/mock-api/
+  --> Read the Docs
+  https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/setting-up-mock/
+
+- Create a collection 'Mock Collection' (does not yet contain REST requests)
+- Create a mock server 'Mock Server' with the 'Mock Collection' and 'Postman Essentials Environment'.
+- Version: 'CURRENT'.
+- Don't make the mock server private (for now).
+- Check: Create the Mock Server as an environment variable.
+- The Mock URL: https://0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io
+
+--> Now there is an environment: 
+  - Name: Mock Server
+    - url: https://0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io
+
+If the Environmenet 'Mock Server' is chosen the url can be used, bein an environment variable.
+
+Create a GET:
+- GET {{url}}/get
+  - Save in the collection 'Mock Server'.
+
+- Execute 'GET'
+
+Result:
+
+{
+    "error": {
+        "name": "mockRequestNotFoundError",
+        "message": "To mock this request add an example response for the mock server to return.",
+        "header": "You need an example"
+    }
+}
+
+--> A mock example needs to be set up.
+  --> Click at rightmost '...'.
+
+Create the Mock response:
+- Name: 200 (== Succesful)
+- url : {{url}}/get
+- body:
+{
+    "message": "successful"
+}
+
+Save.
+
+Now execute the GET request again:
+- GET {{url}}/get
+
+Response:
+{
+    "message": "successful"
+}
+
+Try it in a browser (FireFox):
+https://0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io/get
+
+Response:
+{
+    "message": "successful"
+}
+
+Raw data:
+{
+    "message": "successful"
+}
+
+Headers:
+X-Firefox-Spdy: h2
+access-control-allow-origin: *
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Sat, 12 Jun 2021 21:51:06 GMT
+etag: W/"a4-7hO0T/XLq3TuFViTu2ZVQQdIY+A"
+server: nginx
+vary: Accept-Encoding
+x-ratelimit-limit: 120
+x-ratelimit-remaining: 119
+x-ratelimit-reset: 1623534071
+x-srv-span: v=1;s=4568d6a27d9ad20b
+x-srv-trace: v=1;t=14e12dab109713f2
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.5
+Cache-Control: max-age=0
+Connection: keep-alive
+Host: 0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io
+If-None-Match: W/"a4-7hO0T/XLq3TuFViTu2ZVQQdIY+A"
+TE: Trailers
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0
+
+--> So the server is not local but resides at Postman.
+
+
+Now another example: HTTP 503
+- Create example
+  Create the Mock response:
+  - Name: 503 (== service unavailable)
+  - url : {{url}}/get
+  - body:
+  {
+      "message": "service unavailable"
+  }
+
+Execute the request again:
+GET {{url}}/get
+
+Response:
+{
+    "message": "service unavailable"
+}
+HTTP status: 503 Service Unavailable.
+
+--> Two mock responses against the same request will not work.
+
+Adapt the two mock responses:
+
+Mock response 200:
+GET {{url}}/200
+
+Mock response 503:
+GET {{url}}/503
+
+Execute as follows:
+GET {{url}}/get/200
+Reponse:
+{
+    "message": "successful"
+}
+HTTP status: 200
+
+GET {{url}}/get/503
+{
+    "message": "service unavailable"
+}
+HTTP status: 503
+
+If we do not want to change the GET request every time we can use a header parameter to add the GET input parameter:
+
+Headers:
+- x-mock-response-code: 200
+
+Execute as follows:
+GET {{url}}/get
+Reponse:
+{
+    "message": "successful"
+}
+HTTP status: 200
+
+Now change the mock responses too:
+
+Mock Response : 
+- Mock Collection / getMock / 200
+  - GET {{url}}/get
+  - Response Body:
+
+{
+    "message": "successful"
+}
+
+HTTP Status Code: 200
+
+Idem Mock Collection / getMock / 503
+
+--> Execute:
+
+GET {{url}}/get
+Headers:
+- x-mock-response-code: 200
+
+--> Expected response.
+Idem of x-mock-response-code: 503
+
+So for a given situation: 
+- Create a Mock example in order to define a correct response.
+- These examples can later be used in order to execute REST Assured tests.
+
+
+Ch. 28. Use Mock Server to Practice All HTTP Status Codes
+
+I have implemented:
+- HTTP status
+  200
+  400
+  403
+  404
+  500
+  501
+  503
+
+Quiz 4.
+
+Mock Server can be used to:
+- Automate UI tests even when the backend is not available.
+- Automate API tests even when the API's are not implemented.
+- Both --> Correct.
+
+
+---------------------------------------------------------------------------------------------------
+2021-06-12:
+
+Section 7: JAVA Programming Essentials
+
+Ch. 29. Section Intro.
+
+Ch. 30. Java Basics - Part 1
+
+Part1: Basics
+=============
+1. Package
+2. Class 
+3. Method
+4. Data types: Premitive and Reference
+5. Initializing variables 
+6. Constructor
+ - With arguments
+ - Without arguments
+7. "static" keyword
+ - Shared between all objects
+8. "final" keyword
+ - Assign value only once
+9. Constants
+10. Enums
+ -  An enum is a special "class" that represents a group of constants
+11. "return" keyword
+12. "this" keyword
+ - Return class object
+13. Strings
+14. Data type conversions
+
+
+- Use IntelliJ.
+- /Users/rkremers/Development/workspaceStudy/JavaEssentials/src
+
+Ch. 31. Java Basics - Part 2
+
+Ch. 32. Java Basics - Part 3
+
+Ch. 33. Java Basics - Part 3
+
+Ch. 39. OOP - Abstraction using abstract class
+
+Abstraction: Hide details and show only essential information!
+
+Abstract class
+--------------
+Provides partial abstraction
+Abstract method is declared without implementation
+Abstract class cannot be directly instantiated
+Sub class can access Abstract class using extends keyword
+Sub class must implement all abstract methods i.e. Overriding is compulsory
+Abstract class can have parameterized constructor
+
+Adv
+---
+Reduces complexity by hiding implementation
+Better viewing
+Avoids code duplication and promotes reusability
+Increases security by providing only important details to the user
+
+E.g.
+----
+Shapes: Abstract
+Triangle: SubClass1
+Square: SubClass2
+
+Ch. 42. File Operations
+
+File operations
+---------------
+Creation of a new file
+Opening an existing file
+Reading from file
+Writing to a file
+Closing a file
+deleting a file
+
+Java classes
+------------
+FileReader, BufferedReader, Files, Scanner, FileInputStream, FileWriter, BufferedWriter, 
+FileOutputStream, etc.
+
+- Create file
+- read file properties
+- read and write file using FileReader and FileWriter
+- read and write file using FileInputStream and FileOutputStream
+- use relative file path (File seperator)
+
+
+---------------------------------------------------------------------------------------------------
+2021-06-13:
+
+Section 8: Rest Assured - Setup
+
+Ch. 43. What is Rest Assured.
+
+Resources:
+- https://rest-assured.io/
+
+
+Ch. 44. Setup Pre-Requisites
+
+Necessary:
+- Java JDK-8
+- TestNG
+- IDE - IntelliJ
+- Maven
+
+Ch. 45. Setup Java JDK.
+
+Ch. 46. Create project using IntelliJ.
+
+Resources:
+- https://github.com/rest-assured/rest-assured/wiki/GettingStarted#contents
+- https://github.com/rest-assured/rest-assured/wiki/Usage#static-imports
+- https://www.javadoc.io/static/org.testng/testng/6.9.4/index.html
+- https://javadoc.io/static/io.rest-assured/rest-assured/4.4.0/index.html?overview-summary.html
+
+Project:
+- $HOME/Development/workspaceStudy/RestAssured
+
+Modernize the properties:
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+Add to pom.xml:
+- rest-assured
+  - version 4.4.0.
+    - This version already contains json-path: 4.4.0.
+- testng
+  - version 7.4.0.
+
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.4.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+Static imports
+
+In order to use REST assured effectively it's recommended to statically import methods from the following classes:
+
+io.restassured.RestAssured.*
+io.restassured.matcher.RestAssuredMatchers.*
+org.hamcrest.Matchers.*
+
+So:
+
+import org.testng.annotations.Test;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+public class TestClass {
+
+    @Test
+    public void test() {
+        given()
+                .when()
+                .then();
+    }
+}
+
+It is possible (but not in my case) that an exception occurs:
+- please use the JVM argument [-Dtestng.dtd.http=true]
+
+Edit configurations
+- Templates
+  - TestNG
+    - VM Options:
+      - Add: -Dtestng.dtd.http=true
+
+This poses no problem for me but I have added it nonetheless. Keeps going okay.
+Removing it again....
+
+
+Quiz 5:
+Question 1:
+Can I use REST Assured with .NET?
+- No
+  - But a port to .NET exists.
+Question 2:
+Does REST Assured use (Apache) HTTP Client under the hood?
+- Yes
+  - Check IntelliJ
+    - Project
+      - External Libraries
+
+---------------------------------------------------------------------------------------------------
+2021-06-13:
+
+Section 9: Download Resources
+
+Ch. 50. Download Code from here
+- RestAssured.zip
+
+Update project $HOME/Development/workspaceStudy/RestAssured/
+tomorrow.
+
+Ch. 51. Download the Slide Deck from here
+- RestAssuredDeck.pptx
+
+---------------------------------------------------------------------------------------------------
+2021-06-13:
+
+Section 10: Rest Assured - Getting Started
+
+Ch. 52. Why static imports?
+
+Main reason:
+- Readability; the use of (apparently) natural language.
+
+Resources:
+- https://stackoverflow.com/questions/22658599/how-to-set-the-rest-assured-basepath-through-requestspecbuilder-or-requestspecif
+
+Ch. 53. Method chaining concept.
+
+Ch. 54. Automate GET Request - Assert Status Code.
+
+
+Ch. 55. Automate GET Request - Assert Response body..
+
+- http://groovy-playground.appspot.com/
+  - Site for testing json files groovy-style.
+
+--> Use the Groovy-playground to determine the path, that is necessary for determining the name of a specific workspace.
+- Spend some time on Groovy.
+  Especially:
+
+import groovy.json.JsonSlurper
+
+def object = new JsonSlurper().parseText(
+    '''
+{
+    "workspaces": [
+        {
+            "id": "1b7a0f2c-f29e-47a5-9876-8209a17feb34",
+            "name": "Yet another Workspace",
+            "type": "personal"
+        },
+        {
+            "id": "5a7edc8d-9407-4010-8935-31e851c39449",
+            "name": "My Workspace",
+            "type": "personal"
+        },
+        {
+            "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+            "name": "Postman Essentials Workspace",
+            "type": "team"
+        },
+        {
+            "id": "efbb8b92-6110-4e3a-8c6e-81e8b511fe9d",
+            "name": "Team Workspace",
+            "type": "team"
+        }
+    ]
+} 
+    '''
+)
+
+def query = object.workspaces.size() # Check the possibilities here.
+
+
+Ch. 56. Automate GET Request - Extract Response.
+
+    @Test
+    public void testResponseExtraction() {
+        Response response =  given()
+                .header("X-Api-Key", X_API_KEY_VALUE)
+                .when()
+                .get()
+                .then()
+//                .log().all()
+                .assertThat()
+                .statusCode(HTTP_Status_code_OK)
+                .extract()
+                .response();
+
+        log.info("repsonse: {}");
+        log.info(response.asPrettyString());
+
+    }
+
+Ch. 57 Automate GET Request - Extract Single Field.
+
+
+Ch. 58. Hamcrest Assertion on Extracted Response.
+
+Resources:
+- http://hamcrest.org/JavaHamcrest/javadoc/2.1/
+
+Ch. 59. What is Hamcrest and Why is it popular?
+
+Resource:
+- http://hamcrest.org/JavaHamcrest/javadoc/2.1/
+- Automate_Get_Request_Hamcrest_Collection.txt
+  - See below.
+
+  -> Hamcrest is a well known assertion library used for unit testing along with JUnit.
+  -> Hamcrest can be used along with Rest Assured for assertions.
+  -> Uses matcher classes for making assertions
+
+  Adv:
+  -> Human readable and in plain english
+  -> Code is neat and intuitive
+  -> Provides thin methods like "is" and "not", also called as decorators, for more readibility
+
+  Hamcrest Vs TestNG
+  -> Readibility
+  -> Descriptive error messages
+  -> Type Safety
+
+Hamcrest:
+
+  java.lang.AssertionError: 
+  Expected: "Postman Essentials Workspace1"
+       but: was "Postman Essentials Workspace"
+  Expected :Postman Essentials Workspace1
+  Actual   :Postman Essentials Workspace
+  <Click to see difference>
+
+
+at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:18)
+
+TestNG:
+
+  java.lang.AssertionError: The workspace name was incorrect. 
+  Expected :Postman Essentials Workspace1
+  Actual   :Postman Essentials Workspace
+  <Click to see difference>
+
+
+  at org.testng.Assert.fail(Assert.java:99)
+
+When running:
+$ mvn verify <enter>
+
+Tests run: 10, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 11.422 sec <<< FAILURE!
+testHamcrestAssertOnExtractedResponse(com.rest.TestGetPostmanWorkspaces)  Time elapsed: 0.89 sec  <<< FAILURE!
+java.lang.AssertionError: 
+Expected: "Postman Essentials Workspace1"
+     but: was "Postman Essentials Workspace"
+  at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:18)
+  at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:6)
+  at com.rest.TestGetPostmanWorkspaces.testHamcrestAssertOnExtractedResponse(TestGetPostmanWorkspaces.java:240)
+
+testTestNGAssertOnExtractedResponse(com.rest.TestGetPostmanWorkspaces)  Time elapsed: 0.85 sec  <<< FAILURE!
+java.lang.AssertionError: The workspace name was incorrect. expected [Postman Essentials Workspace1] but found [Postman Essentials Workspace]
+  at org.testng.Assert.fail(Assert.java:99)
+  at org.testng.Assert.failNotEquals(Assert.java:1037)
+  at org.testng.Assert.assertEqualsImpl(Assert.java:140)
+  at org.testng.Assert.assertEquals(Assert.java:122)
+  at org.testng.Assert.assertEquals(Assert.java:629)
+  at com.rest.TestGetPostmanWorkspaces.testTestNGAssertOnExtractedResponse(TestGetPostmanWorkspaces.java:260)
+
+
+Results :
+
+Failed tests:   testHamcrestAssertOnExtractedResponse(com.rest.TestGetPostmanWorkspaces): (..)
+  testTestNGAssertOnExtractedResponse(com.rest.TestGetPostmanWorkspaces): The workspace name was incorrect. expected [Postman Essentials Workspace1] but found [Postman Essentials Workspace]
+
+Tests run: 10, Failures: 2, Errors: 0, Skipped: 0
+
+--> Contrary to what the author says both work fine.
+
+
+
+  Collection matchers (List, Array, Map, etc.)
+  ==============================================
+  hasItem() -> check single element in a collection
+  not(hasItem()) -> check single element is NOT in a collection
+  hasItems() -> Check all elements are in a collection
+  contains() -> Check all elements are in a collection and in a strict order
+  containsInAnyOrder() -> Check all elements are in a collection and in any order
+  empty() -> Check if collection is empty
+  not(emptyArray()) -> Check if the Array is not empty
+  hasSize() -> Check size of a collection
+  everyItem(startsWith()) -> Check if every item in a collection starts with specified string
+
+  hasKey() -> Map -> Check if Map has the specified key [value is not checked]
+  hasValue() -> Map -> Check if Map has at least one key matching specified value
+  hasEntry() -> Maps -> Check if Map has the specified key value pair
+  equalTo(Collections.EMPTY_MAP) -> Maps [Check if empty]
+  allOf() -> Matches if all matchers matches
+  anyOf() -> Matches if any of the matchers matches
+
+  Numbers:
+  greaterThanOrEqualTo()
+  lessThan()
+  lessThanOrEqualTo()
+
+  String:
+  containsString()
+  emptyString()
+
+
+Ch. 60 Hamcrest Collection Matches - Part 1.
+
+Test Hamcrest methods.
+
+  contains() -> Check all elements are in a collection and in a strict order
+  containsInAnyOrder() -> Check all elements are in a collection and in any order
+
+Ch. 61. Hamcresst Collection Matchers - Part 2.
+
+  empty() -> Check if collection is empty
+  Should work for all Collections.
+
+Testcase:
+{
+    "workspaces": [
+        {
+            "id": "1b7a0f2c-f29e-47a5-9876-8209a17feb34",
+            "name": "Yet another Workspace",
+            "type": "personal"
+        },
+        {
+            "id": "5a7edc8d-9407-4010-8935-31e851c39449",
+            "name": "My Workspace",
+            "type": "personal"
+        },
+        {
+            "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+            "name": "Postman Essentials Workspace",
+            "type": "team"
+        },
+        {
+            "id": "efbb8b92-6110-4e3a-8c6e-81e8b511fe9d",
+            "name": "Team Workspace",
+            "type": "team"
+        }
+    ]
+} 
+
+    public void testHamcrestIsEmptyAllWorkspaces() {
+        given()
+                .header("X-Api-Key", X_API_KEY_VALUE)
+                .when()
+                .get()
+                .then()
+//                .log().all()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(HTTP_Status_code_OK)
+                .body("workspaces.name"
+                        , is(not(empty()))
+                        ,"workspaces.name"
+                        , is(not(emptyArray()))
+                        , "workspaces.name"
+                        , hasSize(5)
+                        , "workspaces.name"
+                        , everyItem(startsWith("Team"))
+                );
+    }
+
+Fails:
+java.lang.AssertionError: 2 expectations failed.
+JSON path workspaces.name doesn't match.
+Expected: a collection with size <5>
+  Actual: <[Yet another Workspace, My Workspace, Postman Essentials Workspace, Team Workspace]>
+
+JSON path workspaces.name doesn't match.
+Expected: every item is a string starting with "Team"
+  Actual: <[Yet another Workspace, My Workspace, Postman Essentials Workspace, Team Workspace]>
+
+Ch. 62. Hamcrest Collection Matches - Part 3.
+
+Use Hamcrest methods that are applicable for Maps.
+
+Ch. 63. Hamcrest Collection Matches - Part 4.
+
+Quiz 6.
+
+Question 1:
+- Why REST Assured use static imports even though it's not normally recommended in Java?
+  - Code readability
+  - Reduced code
+Question 2:
+- Are Hamcrest assertions type safe?
+  - Yes
+Question 3:
+Given below JSON Array, and assertion, is it a success?
+
+body("address", contains(1, 2))
+{
+  "address": [
+        1, 2, 3
+  ]
+}
+
+  - No -> contains will check whether the expected and actual content are equal.
+
+Question 4:
+Given below JSON Object, and assertion, will this work?
+
+body("address", empty())
+
+{
+  "address": ""
+}
+
+- No: empty() Creates a matcher for Collections matching examined collections whose isEmpty method returns true.
+  - The json above mentioned does not contain a collection.
+
+Question 5:
+- allOff() and anyOff() can be used on Collections
+  - No: allOff() and anyOff() can only be used on Strings
+
+
+---------------------------------------------------------------------------------------------------
+2021-06-19:
+
+Section 11: Logging
+
+Ch. 63. Request and Response Logging.
+
+Ch. 64. Log if Error.
+
+Ch. 65. Log if Validation Fails.
+
+Ch. 66. Blacklist Headers.
+
+Quiz 7
+Question 1:
+Given HTTP status code is 201, will it log the response to console?
+
+then().
+          assertThat().
+          statusCode(200).
+          log().all();
+Result:
+- No
+  - There is no response as such. Only an error message.
+java.lang.AssertionError: 1 expectation failed.
+Expected status code <201> but was <200>.
+
+---------------------------------------------------------------------------------------------------
+2021-06-26:
+
+Section 12: Rest Assured - Handling Headers
+
+Ch. 67. What are Headers?
+
+- Request headers
+- Response headers
+
+Resources:
+- https://iana.org/assignments/message-headers/message-headers.xhtml
+  - Overview of all possible headers.
+
+User-Agent:
+  - e.g.:
+    - PostmanRuntime/7.28.0
+    - Chrome
+    - Firefox
+    - etc.
+
+- Postman:
+  - Standard headers
+  - Custom headers
+    - Custom headers are the headers set by the developer of the API. 
+      The API specs or the developer can provide the information.
+
+
+The response contains (in our case) 15 headers.
+
+Ch. 68. Set Mock Environment for Headers.
+
+We can assert the response headers.
+
+Copy url Postman mockserver: https://0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io
+(the mockserver has already been created)
+
+
+Also:
+
+{{baseUrl}}/workspaces/7fcf506e-2dfa-4530-ba94-78a0a315a86b
+
+{
+    "workspace": {
+        "id": "7fcf506e-2dfa-4530-ba94-78a0a315a86b",
+        "name": "Postman Essentials Workspace",
+        "type": "team",
+        "description": null,
+        "collections": [
+            {
+                "id": "d51ca0ce-b167-4df8-8228-60ddc003e009",
+                "name": "Postman Essentials Collection",
+                "uid": "2814220-d51ca0ce-b167-4df8-8228-60ddc003e009"
+            },
+            {
+                "id": "079c47c0-b2d5-42dc-ad7b-98c631e4c93d",
+                "name": "Mock Collection",
+                "uid": "2814220-079c47c0-b2d5-42dc-ad7b-98c631e4c93d"
+            }
+        ],
+        "environments": [
+            {
+                "id": "45abc7d9-27f8-41e5-aff1-17cd232e6093",
+                "name": "Postman Essentials Environment",
+                "uid": "2814220-45abc7d9-27f8-41e5-aff1-17cd232e6093"
+            },
+            {
+                "id": "530fc911-0019-48da-8ea6-5d848baa9081",
+                "name": "Mock Server",
+                "uid": "2814220-530fc911-0019-48da-8ea6-5d848baa9081"
+            }
+        ],
+        "mocks": [
+            {
+                "id": "0cfbbd01-fbce-453b-91c1-41c2b17b356d"  # This is the id of the mockserver (see above).
+            }
+        ]
+    }
+}
+
+Create a new request:
+
+See collection 'Mock Collection' with environment 'Mock Server Environment'
+- 'Mock Server Environment' contains the intended url (https://0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io)
+
+x-mock-match-request-headers
+
+{
+    "error": {
+        "name": "mockRequestNotFoundError",
+        "message": "Double check your method and the request path and try again.",
+        "header": "No matching requests"
+    }
+}
+
+For the situation that header values need to be checked using a mock server the following needs to be done:
+- Create a Mock GET request
+  - GET {{url}}/get
+    - Request:
+      - Headers:
+        - header: value1  # THIS REALLY HAS TO HAVE THE NAME 'header'. Anything else will cause the error mentioned above.
+        - x-mock-match-request-headers: header  # Indicator for Postman which custom header parameter to use as identifier of the Mock response.
+    - Response:
+      ! This is the response created below because haeder: value1 matches with the corresponding example.
+      - Headers:
+        - responseHeader: responseValue2  # This is a custom value and points to the corresponding example.
+      - Body:
+        {
+            "message": "responseValue1"
+        }
+      - Status: 200
+
+  - Create Examples, in which the several situations need to be defined.
+    - Request:
+      - Headers
+        - header: value1
+    - Response:
+      - Headers:
+        - responseHeader: responseValue1 # Custom
+        - Content-Type: application/json
+      - Status Code: 200
+    - Body:
+      {
+          "message": "responseValue1"
+      }
+
+
+Ch. 69. Multiple Headers in Request.
+
+public class TestAutomateHeaders {
+
+    private final int HTTP_Status_code_OK = 200;
+    private final int HTTP_Status_code_Created = 201;
+
+    @BeforeClass
+    public static void init() {
+        baseURI = "https://0cfbbd01-fbce-453b-91c1-41c2b17b356d.mock.pstmn.io";
+        basePath = "/get";
+    }
+
+    @Test
+    public void testMultipleHeaders() {
+        given()
+                .header("header", "value1")
+                .header("x-mock-match-request-headers", "header")
+                .when()
+                .get()
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(HTTP_Status_code_OK);
+    }
+}
+
+--> Works:
+HTTP/1.1 200 OK
+Date: Mon, 28 Jun 2021 06:58:42 GMT
+Content-Type: application/json; charset=utf-8
+..
+{
+    "message": "headerValue1"
+}
+
+Ch. 70. Multiple Headers in Request - Using Headers.
+
+
+Ch. 71. Multiple Headers in Request - Using Map.
+
+Ch 72. Multi Value Header
+
+    /**
+    * Ch 72. Multi Value Header
+    * With regards to the functionality of Postman Mocks:
+    * Apparently a header parameter with a name containing 'header' can only be named 'header.
+    * Otherwise an error will occur.
+    * But it's entirely possible to give a header parameter another name NOT containing 'header'.
+    * 
+    */
+    @Test
+    public void testMultipleHeadersInRequest() {
+//        Header header1 = new Header("multiValueHeader", "value1");
+//        Header header2 = new Header("multiValueHeader", "value2");
+//        Headers headers = new Headers(header1, header2);
+
+        Header header1 = new Header("number1", "three");
+        Header header2 = new Header("number2", "four");
+        Headers headers = new Headers(header1, header2);
+
+        given()
+                .headers(headers)
+                .log().headers()
+                .when()
+                .get()
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(HTTP_Status_code_OK);
+    }
+
+
+Ch. 73. Response Headers - Assert.
+
+Ch. 74.Response Headers - Extract.
+
+
+Ch. 75. Response Headers - Extract Multi Value Header.
+
+Quiz 8.
+
+Question 1:
+I need to send below two headers in the request.
+
+header1 = value1
+
+header2 = value2
+
+Can I send the headers like this?
+
+headers("header1", "value1", "header2", "value2")
+
+Yes
+
+Question 2:
+I'm sending below header info in the request. Which of the below statements is true.
+
+header("header1", "value1", "header2", "value2")
+
+It will send three headers with same header
+
+See 
+RequestSpecification header(String headerName,
+                            Object headerValue,
+                            Object... additionalHeaderValues)
+
+
+---------------------------------------------------------------------------------------------------
+2021-07-04:
+
+Section 13: Rest Assured - Request Specification
+
+CH. 76. What is Request Specification
+
+
+Ch. 77. How to Reuse Request Specification.
+
+Ch. 78. BDD to non-BDD.
+
+Ch. 79. Request Specification Builder.
+
+Ch. 80. Default Request Specification.
+
+Ch. 81. Query Request Specification.
+
+Quiz 9. 
+
+
+Question 1:
+What is Request and Response specification in REST Assured?
+- Interface
+
+Question 2:
+Is it possible to have multiple default request specifications?
+- No: it is a static parameter of Class RestAssured. In that case only one specification is possible.
+
+Question 3:
+Is it possible to create multiple request and response specifications?
+- Yes
+  - It is possible to create multiple instances of requestSpecBuilder.
+    Therefore it is possible to let RestAssured.requestSpecification point to different RequestSpecBuilder instances
+    depending on the situation.
+
+Question 4:
+I have below request specification:
+
+RequestSpecification requestSpecification = with().
+                baseUri("https://api.postman.com").
+                header("X-Api-Key", "PMAK-5ff2d720d2a39a004250e5da-c658c4a8a1cee3516762cb1a51cba6c5e2").
+                log().all();
+and I have below given statement:
+
+given(requestSpecification).
+        baseUri("https://8f6d7436-aba9-4c1f-bc81-fdc881a11fb1.mock.pstmn.io").
+        header("header1", "value1").
+
+Which out of below statements is true?
+- baseUri in the request specification is overwritten by the baseUri in the given statement
+  while the header in the request specification gets appended to the header in the given statement.
+
+Question 5:
+I have below request specification:
+
+RequestSpecification requestSpecification = with().
+                baseUri("https://api.postman.com").
+                header("X-Api-Key", "PMAK-5ff2d720d2a39a004250e5da-c658c4a8a1cee3516762cb1a51cba6c5e2").
+                log().all();
+and I have below statements in my test case:
+
+        given().
+        when().
+                get("/get").
+        then().
+                log().all().
+                assertThat().
+                statusCode(200);
+
+Will the test case execute successfully?
+- No.
+  - Reason:
+    I am not using the RestAssured.requestSpecification but a separate value.
+    In that case I need to give the RestAssured.requestSpecification to the given() method as input: given(requestSpecification).
+
+
+---------------------------------------------------------------------------------------------------
+2021-07-04:
+
+Section 14: Rest Assured - Response Specification
+
+Ch. 82. Create Response Specification.
+
+Ch. 83. Response Specification Builder.
+
+Ch. 84. Default Response Specification.
+
+
+Quiz 10.
+
+Response specification can be sent through the then() method, like this,
+
+then(responseSpecification);
+
+- No:
+  RestAssured.then() is not overloaded; can not accept a header parameter.
+
+
+---------------------------------------------------------------------------------------------------
+2021-07-04:
+
+Section 15: Rest Assured - Automate POST, PUT and DELETE
+
+Ch. 85. POST - BDD Style.
+
+In Postman:
+
+POST:
+{{baseUrl}}/workspaces/
+
+{
+    "workspace": {
+        "name": "MyFifthWorkspace",
+        "type": "personal",
+        "description": "workspace for BDD Style testing the POST HTTP method"
+    }
+}
+
+Response:
+{
+    "workspace": {
+        "id": "7f5bfdae-bae0-4bb5-9113-4e421918a996",
+        "name": "MyFifthWorkspace"
+    }
+}
+
+The regex is created using website: https://regex101.com/
+
+
+Ch. 86. POST - non-BDD-style.
+
+Ch. 87. PUT.
+
+Ch. 88. DELETE.
+
+Quiz 11.
+
+Question 1:
+I have below response specification:
+
+ResponseSpecification responseSpecification = RestAssured.expect().
+                statusCode(200).
+                contentType(ContentType.JSON).
+This is my test case:
+
+given().
+        body(file).
+when().
+        post("/workspaces").
+then().spec(responseSpecification).
+        log().all();
+The API returns no response body and HTTP status code is 200.
+
+Will this succeed ?
+
+Yes in my case, but the official answer is 'No'.
+
+Question 2:
+In my test case, I'm using path parameter like this. Will it work?
+
+String workspaceId = "cd8832a4-0778-4683-a2ee-97a3f17d2ee7";
+String payload = "{\n" +
+        "    \"workspace\": {\n" +
+        "        \"name\": \"newWorkspaceName\",\n" +
+        "        \"type\": \"personal\",\n" +
+        "        \"description\": \"this is created by Rest Assured\"\n" +
+        "    }\n" +
+        "}";
+given().
+        body(payload).
+        pathParam("workspaceId", workspaceId).
+when().
+        put("/workspaces/(workspaceId)").
+then().
+        log().all().
+        assertThat().
+        body("workspace.name", equalTo("newWorkspaceName"),
+                "workspace.id", matchesPattern("^[a-z0-9-]{36}$"),
+                "workspace.id", equalTo(workspaceId));;
+
+
+---------------------------------------------------------------------------------------------------
+2021-07-08:
+
+Section 16: Rest Assured - Send Request Payload Multiple Ways
+
+Ch. 89. Send as a File.
+
+Ch. 90. Send Nested JSON Object as a Map.
+
+Now additionally Jackson-databind is needed:
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.4</version>
+        </dependency>
+
+Ch. 91. Send JSON Array as a List - Create Mock Request.
+
+https://opensource.adobe.com/Spry/samples/data_region/JSONDataSetSample.html
+- Example 4.
+
+
+Created Mock post in Mock Collection: postjsonArray
+- Header key:
+  - Content-Type: application/json
+  - x-mock-match-request-body: true
+    - Ensures that Postman will match the post body with the example response body.
+- Body:
+
+
+Ch. 92. Send JSON Array as a List - Build Test Case.
+
+Ch. 93. Send JSON Array as a List - Content Type Encoding.
+
+
+Quiz 12. Quiz
+
+Question 1:
+REST Assured's body() method can accept which of the following as an argument?
+
+public interface RequestSpecification extends RequestSender {
+    RequestSpecification body(String var1);
+
+    RequestSpecification body(byte[] var1);
+
+    RequestSpecification body(File var1);
+
+    RequestSpecification body(InputStream var1);
+
+    RequestSpecification body(Object var1);
+
+    RequestSpecification body(Object var1, ObjectMapper var2);
+
+    RequestSpecification body(Object var1, ObjectMapperType var2);
+
+Question 2:
+Sending request payload using String should be
+- Least preferred.
+
+Question 3:
+Which of the below statements is correct
+- Map can represent a JSON object and List can represent a JSON array.
+
+Question 4:
+In REST Assured, Jackson library is added as a transitive dependency, so we don't need to add it separately
+- False
+
+Question 5:
+The default encoding format supported by HTML5
+- UTF-8
+
+Question 6:
+If content charset is undefined, REST Assured uses a default content charset as part of the API request
+- True
+
+
+---------------------------------------------------------------------------------------------------
+2021-07-25:
+
+Section 17: Rest Assured - Send Complex JSON as Request Payload
+
+Ch. 94. Create a Mock Request with Complex JSON as Request Payload.
+
+https://opensource.adobe.com/Spry/samples/data_region/JSONDataSetSample.html
+--> Using a sample of this site.
+
+Created Mock postComplexJson with response success.
+--> Works.
+
+Body:
+{
+  "id": "0001",
+  "type": "donut",
+  "name": "Cake",
+  "ppu": 0.55,
+  "batters":
+    {
+      "batter":
+        [
+          { "id": "1001", "type": "Regular" },
+          { "id": [5, 9], 
+                        "type": "Chocolate" 
+                    }
+        ]
+    },
+  "topping":
+    [
+      { "id": "5001", "type": "None" },
+      { "id": "5002", 
+                "type": ["test1", "test2"] 
+            }
+    ]
+}
+
+Ch. 95 Send Complex JSON using Map and List.
+
+Place the body in: https://jsonpathfinder.com/
+--> Check here that the json is correct.
+
+
+Ch. 95. Send Complex JSON using Map and List.
+
+
+Assignment 1. Assignment - Automate Complex JSON.
+
+Here's another good complex JSON example that you can automate sending using REST Assured.
+
+As shown in the lectures, create a POST Mock request and execute it through Postman. Use this JSON as the request payload.
+
+Then use REST Assured to automate this mock request.
+
+Use Map and List to represent this complex JSON just like how I have shown in the lecture.
+
+The only requirement for this exercise is, do not watch the lecture again if you face any issue. 
+Do self debugging and searching on the internet. 
+So to make sure you understood the concept, feel free to watch the lectures multiple times, but before starting with this exercise.
+
+{
+  "colors": [
+    {
+      "color": "black",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": [
+          255,
+          255,
+          255,
+          1
+        ],
+        "hex": "#000"
+      }
+    },
+    {
+      "color": "white",
+      "category": "value",
+      "code": {
+        "rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "hex": "#FFF"
+      }
+    }
+  ]
+}
+Questions for this assignment
+Explain the process that facilitates conversion of Java objects (Map, List, etc.) to JSON
+
+
+- Created Mock POST request {{baseUrl}}/postComplexJsonAssignment1
+  - Added an example
+  - The Mock request works.
+
+- $HOME/Development/workspaceStudy/RestAssured/src/test/java/com/rest/Part11TestPostPayloadComplexJsonAssignment.java
+
+Setup: 
+- In pom.xml of the project has been added:
+
+<!--- Jackson-databind is necessary in case an object is sent as body as value of a Map -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.12.4</version>
+</dependency>
+
+The core of the functionality is class io.restassured RestAssured
+- In pom.xml of the project has been added:
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>4.4.0</version>
+    <scope>test</scope>
+</dependency>
+
+(And a number of other relevant dependencies to support the processing)
+
+- The test class:
+
+The core of the test class is based on class RestAssured.
+- First in a method with annotation @BeforeClass is assigned value to:
+  - baseURI
+  - basePath
+  - requestSpecification = requestSpecBuilder.build();
+  - responseSpecification = responseSpecBuilder.build();
+
+These parameters will be used by the following RestAssured methods.
+This means that no parameters will need to be added to these methods.
+
+Now the complex JSON that will be sent to the Postman Mockserver will be set up using Map and List.
+
+The complete body of the test class is given below. I have left out the values of RestAssured.baseURI.
+
+@Slf4j
+public class Part11TestPostPayloadComplexJsonAssignment {
+
+    /**
+     * Local parameters
+     */
+    private final int HTTP_Status_code_OK = 200;
+    private final int HTTP_Status_code_Created = 201;
+
+    Response response;
+
+    @BeforeClass
+    public void init() {
+        // The base Url of the Mock server that has been set up in Postman.
+        baseURI = "<Postman Mockserver Uri";
+        basePath = "/postComplexJsonAssignment1";
+
+        RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
+        requestSpecBuilder
+                .setBaseUri(baseURI)
+                .addHeader("x-mock-match-request-body", "true")
+                .setContentType("application/json; charset=utf-8")
+                .log(LogDetail.ALL);
+        requestSpecification = requestSpecBuilder.build();
+
+        // Note that this will not show the logging. '.log(LogDetail.ALL)' Doesn't work.
+        ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder()
+                .expectStatusCode(HTTP_Status_code_OK)
+                .expectContentType(ContentType.JSON)
+                .log(LogDetail.ALL);
+
+        responseSpecification = responseSpecBuilder.build();
+    }
+
+    /**
+     * {
+     *   "colors": [
+     *     {
+     *       "color": "black",
+     *       "category": "hue",
+     *       "type": "primary",
+     *       "code": {
+     *         "rgba": [
+     *           255,
+     *           255,
+     *           255,
+     *           1
+     *         ],
+     *         "hex": "#000"
+     *       }
+     *     },
+     *     {
+     *       "color": "white",
+     *       "category": "value",
+     *       "code": {
+     *         "rgba": [
+     *           0,
+     *           0,
+     *           0,
+     *           1
+     *         ],
+     *         "hex": "#FFF"
+     *       }
+     *     }
+     *   ]
+     * }
+     */
+    @Test
+    public void validatePostPayloadComplexJson() {
+
+        /** Color Black **/
+        List<Integer> listRgba1 = new ArrayList<>(Arrays.asList(255, 255, 255, 1));
+
+        Map<String, Object> codeMap1 = new HashMap<>();
+        codeMap1.put("rgba", listRgba1);
+        codeMap1.put("hex", "#000");
+
+        Map<String, Object> colorBlackMap = new HashMap<>();
+        colorBlackMap.put("color", "black");
+        colorBlackMap.put("category", "hue");
+        colorBlackMap.put("type", "primary");
+        colorBlackMap.put("code", codeMap1);
+
+        /** Color White **/
+        List<Integer> listRgba2 = new ArrayList<>(Arrays.asList(0, 0, 0, 1));
+
+        Map<String, Object> codeMap2 = new HashMap<>();
+        codeMap2.put("rgba", listRgba2);
+        codeMap2.put("hex", "#FFF");
+
+        Map<String, Object> colorWhiteMap = new HashMap<>();
+        colorWhiteMap.put("color", "white");
+        colorWhiteMap.put("category", "value");
+        colorWhiteMap.put("code", codeMap2);
+
+        /** List of Colors **/
+        List<Map<String, Object>> colors = new ArrayList<>();
+        colors.add(colorBlackMap);
+        colors.add(colorWhiteMap);
+
+        /** Map of Colors **/
+
+        Map<String, List<Map<String, Object>>> colorsMap = new HashMap();
+        colorsMap.put("colors", colors);
+
+        given()
+                .body(colorsMap)
+                .when()
+                .post()
+                .then()
+                .log().all()
+                .assertThat()
+                .body("message", is(equalTo("Success")));
+    }
+
+}
+
+
+---------------------------------------------------------------------------------------------------
+2021-07-31:
+
+Section 18: Rest Assured - Handling Request Parameters
+
+Ch. 96. Postman Echo Introduction.
+
+Resources:
+- https://learning.postman.com/docs/developer/echo-api/
+- https://www.postman.com/postman/workspace/published-postman-templates/documentation/631643-f695cab7-6878-eb55-7943-ad88e1ccfd65?ctx=documentation
+
+
+Use:
+- Postman Essentials Environment
+
+Set up:
+GET http://postman-echo.com/get
+
+After sending the request:
+- Status: 200 OK
+- Body:
+{
+    "args": {
+        "message": "test"
+    },
+    "headers": {
+        "x-forwarded-proto": "http",
+        "x-forwarded-port": "80",
+        "host": "postman-echo.com",
+        "x-amzn-trace-id": "Root=1-6105512d-7f8ca1bd13f294430c43b6fe",
+        "content-length": "25",
+        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": "PostmanRuntime/7.28.2",
+        "accept": "*/*",
+        "cache-control": "no-cache",
+        "postman-token": "d553fa3c-b785-4fd7-aac8-9055adcb6c80",
+        "accept-encoding": "gzip, deflate, br",
+        "cookie": "sails.sid=s%3AhlJq0o4GaoVzavWlgnnfIYBFAu6pk2MY.MBziNxAmBB1kAw0H4yj5rOCfsXI1cUUy96q8W%2BV9%2FlQ"
+    },
+    "url": "http://postman-echo.com/get"
+}
+
+It will return any parameters, headers, body, that are being used.
+
+Created in Postman Essentials Environment:
+- postman-echo.com/get
+- postman-get.com/post
+
+
+Ch. 97. Single Query Parameter.
+
+--> The Query Parameters under 'Params' tab.
+
+POST http://postman-echo.com/post?foo1=bar1&foo2=bar2
+{
+    "args": {
+        "foo1": "bar1",
+        "foo2": "bar2"
+    },
+    "data": {
+        "message": "test"
+    },
+    "files": {},
+    "form": {},
+    "headers": {
+        "x-forwarded-proto": "http",
+        "x-forwarded-port": "80",
+        "host": "postman-echo.com",
+        "x-amzn-trace-id": "Root=1-6105540d-13ba125b2de00d32150b9e65",
+        "content-length": "25",
+        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": "PostmanRuntime/7.28.2",
+        "accept": "*/*",
+        "cache-control": "no-cache",
+        "postman-token": "02701b44-70d1-4164-ba1c-a58b04b9e436",
+        "accept-encoding": "gzip, deflate, br",
+        "cookie": "sails.sid=s%3AaA47-l_obDPTAgEnLn8qdEtbnpA6w47E.oMVNFWS5s3J3Ayob6vPAqHpbVbMXS%2FG91Y8fbBHGlPs"
+    },
+    "json": {
+        "message": "test"
+    },
+    "url": "http://postman-echo.com/post?foo1=bar1&foo2=bar2"
+}
+
+By using parameters (or via the headers) parts of a larger request can be returned instead of the entire response.
+
+
+Ch. 98. Multiple Query Parameters.
+
+Ch. 99. Multi Value Query Parameter.
+
+Ch. 100. Path Parameter.
+
+API that is freely available:
+https://reqres.in/api/users
+
+In Postman: 
+GET https://reqres.in/api/users
+--> Works.
+
+See also:
+https://reqres.in/api/
+
+
+Quiz 13: Quiz
+
+Question 1:
+Query parameters are separated by:
+- '&'
+
+Question 2:
+I have two query parameters as below:
+
+foo1 = bar1
+
+foo2 = bar2
+
+Is it possible to send these query parameters like below?
+
+queryParams("foo1", "bar1", "foo2", "bar2")
+
+Answer:
+- No
+  - Possible methods:
+    - RequestSpecification queryParams(String var1, Object var2, Object... var3);
+    - RequestSpecification queryParams(Map<String, ?> var1);
+
+- ????
+  Apparently the answer is: yes.
+  - .queryParams("foo1", "bar1", "foo2", "bar2")
+  - Results in:
+    Query params: foo1=bar1
+                  foo2=bar2
+    "args": {
+        "foo1": "bar1",
+        "foo2": "bar2"
+    }
+
+Question 3:
+In case of multi value query parameter, which of the below is allowed?
+- .queryParam("foo1", "bar1;bar2;bar3")
+- .queryParam("foo1", "bar1,bar2,bar3")
+- both
+  - This is the correct answer.
+
+
+---------------------------------------------------------------------------------------------------
+2021-08-01:
+
+Section 19: Rest Assured - Multipart Form Data
+
+Ch. 101. What is Multipart Form Data?
+
+Looking at: 
+- POST http://postman-echo.com/post?foo1=bar1&foo2=bar2
+  - It is possible to fill in form-data instead of raw / JSON.
+  - From-data:
+    - key - value 
+    - Is also called multipart form data.
+      - This means that the data is sent in parts to the server.
+        So the file / content is not sent in one go, but in parts.
+
+- Resources:
+  - https://github.com/rest-assured/rest-assured/wiki/Usage#multi-part-from-data
+
+given().
+        multiPart(new File("/path/to/file")).
+when().
+        post("/upload");
+
+
+The control name in this case is the name of the input tag with name "file". 
+If you have a different control name then you need to specify it:
+
+given().
+        multiPart("controlName", new File("/path/to/file")).
+when().
+        post("/upload");
+
+It's also possible to supply multiple "multi-parts" entities in the same request:
+(so using multiple key-value pairs)
+
+byte[] someData = ..
+given().
+        multiPart("controlName1", new File("/path/to/file")).
+        multiPart("controlName2", "my_file_name.txt", someData).
+        multiPart("controlName3", someJavaObject, "application/json").
+when().
+        post("/upload");
+
+For more advanced use cases you can make use of the MultiPartSpecBuilder. For example:
+
+Greeting greeting = new Greeting();
+greeting.setFirstName("John");
+greeting.setLastName("Doe");
+
+given().
+        multiPart(new MultiPartSpecBuilder(greeting, ObjectMapperType.JACKSON_2)
+                .fileName("greeting.json")
+                .controlName("text")
+                .mimeType("application/vnd.custom+json").build()).
+when().
+        post("/multipart/json").
+then().
+        statusCode(200);
+
+
+As an example:
+- See in Postman: POST postman-get.com/post
+  - Body:
+    - form-data
+      - form-data-key1: form-data-value1
+
+- Response:
+  - See: "form"
+{
+    "args": {
+        "foo1": "bar1",
+        "foo2": "bar2"
+    },
+    "data": {},
+    "files": {},
+    "form": {
+        "form-data-key1": "form-data-value1"
+    },
+    "headers": {
+        "x-forwarded-proto": "http",
+        "x-forwarded-port": "80",
+        "host": "postman-echo.com",
+        "x-amzn-trace-id": "Root=1-6106edd8-2495f2952327b7cc0e05cae0",
+        "content-length": "185",
+        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "content-type": "multipart/form-data; boundary=--------------------------761507422595210622726132",
+        "user-agent": "PostmanRuntime/7.28.2",
+        "accept": "*/*",
+        "cache-control": "no-cache",
+        "postman-token": "f34c73ba-08c4-4853-b172-5054e5e902dd",
+        "accept-encoding": "gzip, deflate, br",
+        "cookie": "sails.sid=s%3ARzLTjeg0GsXxlff0It8PvNXfU-fLqM2Q.gphmsFsrxHTnDhB4ssCzfCpB9Bnlbr%2FHK6CNjIKHliw"
+    },
+    "json": null,
+    "url": "http://postman-echo.com/post?foo1=bar1&foo2=bar2"
+}
+
+
+Ch. 102. Automate Multipart Form Data
+
+
+Quiz 14: Quiz
+
+Question 1:
+In case of Multipart form data, the data is sent
+- In parts.
+
+Question 2:
+Which out of the below is accepted by the multipart() method as an argument?
+- All of them. See below for the possibilities.
+
+io.restassured.specification
+
+public interface RequestSpecification extends RequestSender {
+  
+
+
+    RequestSpecification multiPart(MultiPartSpecification var1);
+
+    RequestSpecification multiPart(File var1);
+
+    RequestSpecification multiPart(String var1, File var2);
+
+    RequestSpecification multiPart(String var1, File var2, String var3);
+
+    RequestSpecification multiPart(String var1, Object var2);
+
+    RequestSpecification multiPart(String var1, Object var2, String var3);
+
+    RequestSpecification multiPart(String var1, String var2, Object var3, String var4);
+
+    RequestSpecification multiPart(String var1, String var2, byte[] var3);
+
+    RequestSpecification multiPart(String var1, String var2, byte[] var3, String var4);
+
+    RequestSpecification multiPart(String var1, String var2, InputStream var3);
+
+    RequestSpecification multiPart(String var1, String var2, InputStream var3, String var4);
+
+    RequestSpecification multiPart(String var1, String var2);
+
+    RequestSpecification multiPart(String var1, String var2, String var3);
+
+}
+
+
+Question 3:
+Is it possible to supply multiple "multi-parts" entities in the same request?
+- Yes
+  - Based on the declarations above and based on the experiment below.
+
+    "form": {
+        "form-data-key1": "form-data-value1,form-data-value2"
+    },
+
+Question 4:
+If we are using multipart() method to send the Multipart form data, is it required to explicitly set the content type of the request to multipart/form-data?
+- No.
+
+
+---------------------------------------------------------------------------------------------------
+2021-08-01:
+
+Section 19: Rest Assured - File Upload and Download.
+
+Ch. 103. Upload File.
+
+In Postman:
+- POST
+  - Body
+    - form-data
+      - key: 
+        - file (just a name) with indicator 'file'.
+      - value:
+        - Now a button 'Select Files' is visible.
+          - When this button is clicked a file can be choosen via a pop-directory.
+      - key:
+        - attributes
+      - value:
+        - {"name":"multipart-test.txt","parent":{"id":"123456"}}
+          - parent is the directory to which we need to upload the file.
+
+Ch. 104. Download file.
+
+https://github.com/appium/appium/blob/master/sample-code/apps/ApiDemos-debug.apk
+- download a file (click on button Download)
+
+- F12: Developer tool
+  - Tab Network
+    - Refresh
+    - Headers
+      - file apiDemos-debug.apk
+        -
+          Request URL: https://github.com/appium/appium/blob/master/sample-code/apps/ApiDemos-debug.apk
+          Request Method: GET
+          Status Code: 200 # can also be 304
+          Remote Address: 140.82.121.3:443
+          Referrer Policy: strict-origin-when-cross-origin
+
+The above mentioned URL is not correct.
+Use the following:
+        baseURI = "https://raw.githubusercontent.com";
+        basePath = "/appium/appium/master/sample-code/apps/ApiDemos-debug.apk";
+
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+HTTP 304:
+Not Modified (RFC 7232)
+    Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match. In such case, there is no need to retransmit the resource since the client still has a previously-downloaded copy.[25]
+
+
+Quiz 15. Quiz.
+
+Question 1:
+Using REST Assured, is it possible to send multiple "multi-parts" entities of different content types?
+- Yes.
+
+Question 2:
+In case of Multipart form data, the default content type used by REST Assured for the text data is
+- text/plain
+
+Question 3:
+REST Assured supports extracting response as Byte array as well as Input stream
+- True.
+
+---------------------------------------------------------------------------------------------------
+2021-08-01:
+
+Section 21: Rest Assured - Form URL Encoding.
+
+Ch. 105. What is Form URL Encoding?
+
+
+Resources:
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+
+
+- application/x-www-form-urlencoded: the keys and values are encoded in key-value tuples separated by '&', with a '=' between the key and the value. 
+  Non-alphanumeric characters in both keys and values are percent encoded: this is the reason why this type is not suitable to use with binary data (use multipart/form-data instead)
+- multipart/form-data: each value is sent as a block of data ("body part"), with a user agent-defined delimiter ("boundary") separating each part. 
+  The keys are given in the Content-Disposition header of each part.
+- text/plain
+
+Example of x-www-form-urlencoded:
+key1=value1&key2=value2
+--> 
+key 1=value 1 # The space will be replaced by %20 == the ANSII code for a space ' '.
+-->
+key%201=value%201
+
+curl --location --request POST 'http://postman-echo.com/post?foo1=bar1&foo2=bar2&foo3=space example' \
+--header 'X-Api-Key: PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Cookie: sails.sid=s%3AGOuQ7e_eEIgneDSO86FejzpBMCuzsDcQ.3COcw1ynK1%2BB%2BCBA1ZRRdMHV730MrTfa5PjoKZNHolo' \
+--data-urlencode 'key1=value1'
+
+Response:
+{
+    "args": {
+        "foo1": "bar1",
+        "foo2": "bar2",
+        "foo3": "space example"
+    },
+    "data": "",
+    "files": {},
+    "form": {
+        "key1": "value1"
+    },
+    "headers": {
+        "x-forwarded-proto": "http",
+        "x-forwarded-port": "80",
+        "host": "postman-echo.com",
+        "x-amzn-trace-id": "Root=1-61079427-695779ad39ea36724d06bc33",
+        "content-length": "11",
+        "x-api-key": "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3",
+        "content-type": "application/x-www-form-urlencoded",
+        "user-agent": "PostmanRuntime/7.28.2",
+        "accept": "*/*",
+        "cache-control": "no-cache",
+        "postman-token": "e4d652b8-65c9-49ee-bf34-bc41793be633",
+        "accept-encoding": "gzip, deflate, br",
+        "cookie": "sails.sid=s%3Aj11kuqAUKJn6XCGJkD8il0lBceogftHU.0p6xjRTjVVEq%2BzRDrKPZWoxcwT0OIjFTi79P0tGJntY"
+    },
+    "json": {
+        "key1": "value1"
+    },
+    "url": "http://postman-echo.com/post?foo1=bar1&foo2=bar2&foo3=space%20example"
+}
+
+--> The response shows the following application/x-www-form-urlencoded:
+
+    "form": {
+        "key1": "value1"
+    },
+
+
+
+Note:
+- Only the active form of the body will be sent.
+  So raw or form-data or urlencoded.
+
+Ch. 106. Automate Form URL Encoded Request Payload.
+
+Quiz 16: Quiz
+
+Question 1:
+The format used by x-www-form-urlencoded and the query parameter to define key value pair is exactly the same.
+- True
+
+Question 2:
+In case of x-www-form-urlencoded, the url is percent encoded
+- True
+
+Question 3:
+When using formParam() method, we need to explicitly send the content type as application/x-www-form-urlencoded
+- Not required.
+  - What is necessary is that you have to tell RestAssured not to use the default characterset (charset=ISO-8859-1).
+    That can be done in multiple ways. One of them is to use:
+
+        requestSpecBuilder
+                .setBaseUri(baseURI)
+                .setContentType("application/x-www-form-urlencoded; charset=utf-8")
+                .log(LogDetail.ALL);
+        requestSpecification = requestSpecBuilder.build();
+
+
+---------------------------------------------------------------------------------------------------
+2021-08-02:
+
+Section 22: Rest Assured - JSON Schema Validation
+
+Ch. 107. What is JSON Schema?
+
+
+{
+    "checked": false,
+    "dimensions": {
+        "width": 5,
+        "height": 10
+    },
+    "id": 1,
+    "name": "A green door",
+    "price": 12.5,
+    "tags": [
+        "home",
+        "green"
+    ]
+}
+
+Corresponding JSON schema:
+
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/root.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema is the schema that comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "checked",
+        "dimensions",
+        "id",
+        "name",
+        "price",
+        "tags"
+    ],
+    "properties": {
+        "checked": {
+            "$id": "#/properties/checked",
+            "type": "boolean",
+            "title": "The Checked Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "dimensions": {
+            "$id": "#/properties/dimensions",
+            "type": "object",
+            "title": "The Dimensions Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "height": 10.0,
+                    "width": 5.0
+                }
+            ],
+            "required": [
+                "width",
+                "height"
+            ],
+            "properties": {
+                "width": {
+                    "$id": "#/properties/dimensions/properties/width",
+                    "type": "integer",
+                    "title": "The Width Schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        5
+                    ]
+                },
+                "height": {
+                    "$id": "#/properties/dimensions/properties/height",
+                    "type": "integer",
+                    "title": "The Height Schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        10
+                    ]
+                }
+            }
+        },
+        "id": {
+            "$id": "#/properties/id",
+            "type": "integer",
+            "title": "The Id Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                1
+            ]
+        },
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "title": "The Name Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "A green door"
+            ]
+        },
+        "price": {
+            "$id": "#/properties/price",
+            "type": "number",
+            "title": "The Price Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                12.5
+            ]
+        },
+        "tags": {
+            "$id": "#/properties/tags",
+            "type": "array",
+            "title": "The Tags Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "home",
+                    "green"
+                ]
+            ],
+            "items": {
+                "$id": "#/properties/tags/items",
+                "type": "string",
+                "title": "The Items Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                    "home",
+                    "green"
+                ]
+            }
+        }
+    }
+}
+
+Ch. 108. Automate JSON Schema Validation.
+
+Resources:
+- https://jsonschema.net/home
+- https://github.com/rest-assured/rest-assured/wiki/Usage#json-schema-validation
+- you can validate that a resource (/products) conforms with the schema:
+
+  get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
+
+<!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-schema-validator</artifactId>
+    <version>4.4.0</version>
+</dependency>
+
+import static io.restassured.module.jsv.JsonSchemaValidator;
+
+
+Test:
+    @Test
+    public void testJsonSchema() {
+        given()
+                .log().all()
+                .when()
+                .get()
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(HTTP_Status_code_OK)
+        ;
+    }
+
+Response:
+{
+    "args": {
+        
+    },
+    "headers": {
+        "x-forwarded-proto": "http",
+        "x-forwarded-port": "80",
+        "host": "postman-echo.com",
+        "x-amzn-trace-id": "Root=1-61086137-5fd4345300552b4065246ab9",
+        "content-type": "application/json; charset=utf-8",
+        "accept": "*/*",
+        "user-agent": "Apache-HttpClient/4.5.13 (Java/1.8.0_242)",
+        "accept-encoding": "gzip,deflate"
+    },
+    "url": "http://postman-echo.com/get"
+}
+
+Place the schema in: https://jsonschema.net/home
+- Click on button 'SUBMIT'.
+--> A JSON schema will be generated.
+
+JSON schema:
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "args": {},
+            "headers": {
+                "x-forwarded-proto": "http",
+                "x-forwarded-port": "80",
+                "host": "postman-echo.com",
+                "x-amzn-trace-id": "Root=1-61086137-5fd4345300552b4065246ab9",
+                "content-type": "application/json; charset=utf-8",
+                "accept": "*/*",
+                "user-agent": "Apache-HttpClient/4.5.13 (Java/1.8.0_242)",
+                "accept-encoding": "gzip,deflate"
+            },
+            "url": "http://postman-echo.com/get"
+        }
+    ],
+    "required": [
+        "args",
+        "headers",
+        "url"
+    ],
+    "properties": {
+        "args": {
+            "$id": "#/properties/args",
+            "type": "object",
+            "title": "The args schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {}
+            ],
+            "required": [],
+            "additionalProperties": true
+        },
+        "headers": {
+            "$id": "#/properties/headers",
+            "type": "object",
+            "title": "The headers schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "x-forwarded-proto": "http",
+                    "x-forwarded-port": "80",
+                    "host": "postman-echo.com",
+                    "x-amzn-trace-id": "Root=1-61086137-5fd4345300552b4065246ab9",
+                    "content-type": "application/json; charset=utf-8",
+                    "accept": "*/*",
+                    "user-agent": "Apache-HttpClient/4.5.13 (Java/1.8.0_242)",
+                    "accept-encoding": "gzip,deflate"
+                }
+            ],
+            "required": [
+                "x-forwarded-proto",
+                "x-forwarded-port",
+                "host",
+                "x-amzn-trace-id",
+                "content-type",
+                "accept",
+                "user-agent",
+                "accept-encoding"
+            ],
+            "properties": {
+                "x-forwarded-proto": {
+                    "$id": "#/properties/headers/properties/x-forwarded-proto",
+                    "type": "string",
+                    "title": "The x-forwarded-proto schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "http"
+                    ]
+                },
+                "x-forwarded-port": {
+                    "$id": "#/properties/headers/properties/x-forwarded-port",
+                    "type": "string",
+                    "title": "The x-forwarded-port schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "80"
+                    ]
+                },
+                "host": {
+                    "$id": "#/properties/headers/properties/host",
+                    "type": "string",
+                    "title": "The host schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "postman-echo.com"
+                    ]
+                },
+                "x-amzn-trace-id": {
+                    "$id": "#/properties/headers/properties/x-amzn-trace-id",
+                    "type": "string",
+                    "title": "The x-amzn-trace-id schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Root=1-61086137-5fd4345300552b4065246ab9"
+                    ]
+                },
+                "content-type": {
+                    "$id": "#/properties/headers/properties/content-type",
+                    "type": "string",
+                    "title": "The content-type schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "application/json; charset=utf-8"
+                    ]
+                },
+                "accept": {
+                    "$id": "#/properties/headers/properties/accept",
+                    "type": "string",
+                    "title": "The accept schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "*/*"
+                    ]
+                },
+                "user-agent": {
+                    "$id": "#/properties/headers/properties/user-agent",
+                    "type": "string",
+                    "title": "The user-agent schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Apache-HttpClient/4.5.13 (Java/1.8.0_242)"
+                    ]
+                },
+                "accept-encoding": {
+                    "$id": "#/properties/headers/properties/accept-encoding",
+                    "type": "string",
+                    "title": "The accept-encoding schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "gzip,deflate"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "url": {
+            "$id": "#/properties/url",
+            "type": "string",
+            "title": "The url schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "http://postman-echo.com/get"
+            ]
+        }
+    },
+    "additionalProperties": true
+}
+
+$HOME/Development/workspaceStudy/RestAssured/src/test/resources/postman-echo-json-schema.json
+
+Ch. 109. Class Path Options.
+
+Creation of a src/test/resources directory.
+(I had this done at the beginning or IntelliJ had already done)
+
+
+Quiz 17: Quiz.
+
+Question 1:
+For JSON Schema validation, the JSON file should be in the class path
+- True
+  - You mean: the json file containng the schema.
+
+Question 2:
+matchesJsonSchemaInClasspath() method belongs to REST Assured and no external dependency is required
+- False.
+
+Question 3:
+The Required property in the JSON Schema indicates that the JSON field is mandatory
+- True.
+
+
+---------------------------------------------------------------------------------------------------
+2021-08-03:
+
+Section 23: Rest Assured - Filters
+
+Ch. 110. Log Request and Response Specification to the Console.
+
+Resources:
+- https://github.com/rest-assured/rest-assured/wiki/Usage#filters
+- https://javadoc.io/static/io.rest-assured/rest-assured/4.4.0/index.html?io/restassured/RestAssured.html
+
+A filter allows you to inspect and alter a request before it's actually committed and also inspect and alter the response before it's returned to the expectations. 
+You can regard it as an "around advice" in AOP terms. 
+Filters can be used to implement custom authentication schemes, session management, logging etc. 
+To create a filter you need to implement the io.restassured.filter.Filter interface. To use a filter you can do:
+
+given().filter(new MyFilter()). ..
+
+There are a couple of filters provided by REST Assured that are ready to use:
+
+ 1. io.restassured.filter.log.RequestLoggingFilter: A filter that'll print the request specification details.
+ 2. io.restassured.filter.log.ResponseLoggingFilter: A filter that'll print the response details if the response matches a given status code.
+ 3. io.restassured.filter.log.ErrorLoggingFilter: A filter that'll print the response body if an error occurred (status code is between 400 and 500).
+
+
+Ch. 111. Reuse Filters.
+
+Ch. 112. Log to File.
+
+
+---------------------------------------------------------------------------------------------------
+2021-08-03:
+
+Section 24: Serialization and De-serialization.
+
+Ch. 113. Serializaation and De-serialization in Java.
+
+
+Serialization:
+
+Java Object --> Byte Stream --> persisted in a file, db or memory
+
+De-serialization:
+
+Persisted data --> Byte Stream --> Java Object.
+
+
+Ch. 114. Serialization and De-serialization in Rest Assured.
+
+
+POJO / Map / List Java Object --> Object Mapping (Serialize) --> JSON / XML Object --> HTTP Request  --> Server
+                                      <-- Deserialize        <--                   <-- HTTP Response <--
+
+                                 Jackson / Gson : JSON Object
+                                 JAXB           : XML Object 
+                                      Serializers
+
+Ch. 115. Object Mapping Support.
+
+Resources:
+- https://github.com/rest-assured/rest-assured/wiki/Usage#object-mapping
+
+Note:
+A JSON object can be created from a HashMap but also from a List (not mentioned in the article).
+
+
+Ch. 116. Serialize Map to JSON using Jackson.
+
+pom.xml:
+
+        <!--- Jackson-databind is necessary in case an object is sent as body as value of a Map
+         See Part09TestRequestPayloadMultipleWays; public void testValidatePostRequestPayloadAsMap() -->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.4</version>
+        </dependency>
+
+--> Supports the use of Jackson for (de)serialization.
+
+Used e.g. in $HOME/Development/workspaceStudy/RestAssured/src/test/java/com/rest/Part091TestRequestPayloadMultipleWays.java
+
+--> New version 
+
+
+Ch. 117. Serialize List to JSON Array using Jackson.
+
+
+Ch. 118. Serialize Jackson Object Node to JSON Object.
+
+Now a Jackson object will be created directly instead of translating a HashMap or List.
+
+JSON Object:
+
+ObjectMapper
+  createObjectNode()  --> returns an instance of the class ObjectNode.
+
+
+Ch. 119.Serialize Jackson Array Node to JSON Array.
+
+ObjectMapper
+  createArrayNode() --> returns an instance of the class ArrayNode.
+
+Ch. 120. What is POJO?
+
+Ch. 121. simple POJO: Create Mock Request.
+
+Creation of Mock Request postSimplePojo in Postman.
+
+Ch. 122. Simple POJO: Serialization.
+
+Ch. 123. Simple POJO: De-serialization.
+
+Ch. 124. Workspace POJO: Serialize and De-serialize.
+
+Create a PoJo for the nested JSON.
+
+Body:
+{
+    "workspace": {
+        "name": "MyFifthWorkspace",
+        "type": "personal",
+        "description": "workspace for BDD Style testing the POST HTTP method"
+    }
+}
+--> Corresponding PoJo.
+
+The following classes have been created:
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Workspace {
+    private String name;
+    private String type;
+    private String description;
+}
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class WorkspaceRoot {
+    private Workspace workspace;
+}
+
+Ch. 125. Workspace POJO: Paramterize Tests using TestNG Data Provider.
+
+Quiz 18. Quiz
+
+Question 1:
+Serialization in REST Assured is the process of converting JSON to Java Object
+- False (the other way around)
+
+Question 2:
+Which library is used for serialization and de-serialization of JSON
+- jackson-databind
+
+
+Question 3:
+For content type "application/json", in which order REST Assured looks for library in the class path in order to do serialization and de-serialization?
+- Jackson first and then Gson
+  See below for explanation.
+
+https://github.com/rest-assured/rest-assured/wiki/Usage#content-type-based-serialization
+JSON using Jackson 2 (Faster Jackson (databind))
+JSON using Jackson (databind)
+JSON using Gson
+JSON using Johnzon
+JSON-B using Eclipse Yasson
+XML using JAXB
+
+
+Question 4:
+If content type is specified as "application/xml", which of the below library will REST Assured use for serialization and de-serialization
+- JAXB
+
+Question 5:
+Is it possible to set an explicit serializer instead of having REST Assured search for a suitable library in the class path?
+- Yes
+
+Question 6:
+REST Assured supports custom content type serialization
+- True
+
+
+Question 7:
+ObjectMapper class from Jackson can be used for serialization outside REST Assured
+- True
+
+Question 8:
+Jackson Object Node can be used to represent a JSON Array
+- False
+
+Question 9:
+REST Assured's body() method can accept Jackson's Object Node as an argument
+- True
+
+Question 10:
+A POJO class is type safe
+- True
+
+Question 11:
+Which of the below is the advantage of using a POJO class
+- Both (Readability, Reusability)
+
+
+Assignment 2: Assignment - Create POJO and serialize this JSON.
+
+Use below freely available public POST API to create a user. 
+This is mocked, so it will not create any user in reality, but it will send a successful response with HTTP Status code 201.
+
+This is what you need to do as part of this assignment:
+
+1. Execute the API in the POSTMAN first to make sure it's working as expected
+  - Done.
+
+2. Create a POJO for the request body
+  - Done.
+
+3. Serialize using REST Assured
+  - Done.
+
+4. You can validate the response http status code and the response body. 
+  For the body, just validate that the content type is JSON and the presence of the ID field. Value doesn't matter. 
+  Just that it should have a non null value.
+
+URL: https://jsonplaceholder.typicode.com/users
+
+Method: POST
+
+Body:
+
+{
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "Sincere@april.biz",
+  "address": {
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "city": "Gwenborough",
+    "zipcode": "92998-3874",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
+    }
+  }
+}
+HTTP Status code: 201
+
+Response body:
+
+{
+    "id": 11
+}
+
+
+Questions for this assignment
+How many POJO classes are required to represent this JSON?
+
+
+===================================================================================================
+2021-08-07:
+
+Setup:
+
+- Postman:
+  - Postman Essentionals Collection/pstJsonPlaceHolderTypicodeComUsers
+    - POST https://jsonplaceholder.typicode.com/users
+      - Content-Type: application/json; charset=utf-8
+
+Response:
+{
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+        }
+    },
+    "id": 11
+}
+
+So yes: there Response body contains:
+{
+  ..
+  "id": 11
+}
+
+
+---------------------------------------------------------------------------------------------------
+2021-08-07:
+
+Section 25: Jackson Annotations.
+
+Ch. 126. Not Null.
+
+
+In class Workspace the variable 'id' will initially be null.
+In order not to show this variable when the serialized JSON is sent the following is used:
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+- @JsonInclude(JsonInclude.Include.NON_NULL)
+
+
+See below (and in class RestAssured/src/main/java/com/rest/entities/Workspace.java):
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Workspace {
+    private String id;
+    private String name;
+    private String type;
+    private String description;
+
+    public Workspace(String name, String type, String description) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+    }
+}
+
+
+Ch. 127. Non Default.
+
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+
+In this case:
+
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+public class Workspace {
+    // Example for showing a field that should not be used for serialization at all.
+    private int i;
+
+    private String id;
+    private String name;
+    private String type;
+    private String description;
+
+    public Workspace(String name, String type, String description) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+    }
+}
+
+--> Now in the logging the variables i and id will not be shown:
+    Because both now have default values.
+
+The annotation @JsonInclude can be used at class- and at variable-level.
+
+
+Ch. 128. Non Empty.
+
+    // Example of the use of a variable that should not be empty.
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+
+This means that the variable will only be added to the JSON if it is not empty.
+It should not be null; it includes NON_NULL as well.
+
+
+Ch. 129. JSON Ignore and JSON Ignore Poperties.
+
+An alternative for @JsonInclude() is @JsonIgnore.
+It can be used on a variable but also on a set-method.
+
+@JsonIgnore can not be used if a variable will be filled during deserialization.
+In that case @JsonIgnoreProperties should be used.
+
+
+--------------------------------------------------------------------------------------------------
+2021-08-07:
+
+Section 26: Complex POJO - Live Practice
+
+Instead of 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+We will now set up classes for a more intricate JSON.
+
+
+Ch. 130. API Walkthrough
+
+Create a complex JSON and use it for serialization / deserialization.
+
+
+POST https://api.getpostman.com/collections
+- Use Postman Essentials Environment.
+
+
+
+https://api.gepostman.com/collections
+
+The complext json that is being used is available on:
+- https://learning.postman.com/docs/developer/intro-api/
+  - On the 2nd line click on 'Postman API'
+    - Scroll down to find the complex JSON example:
+
+{
+  "collection": {
+    "info": {
+      "name": "Sample Collection",
+      "description": "This is just a sample collection.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "This is a folder",
+        "item": [
+          {
+            "name": "Sample POST Request",
+            "request": {
+              "url": "https://postman-echo.com/post",
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\"data\": \"123\"}"
+              },
+              "description": "This is a sample POST Request"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Sample GET Request",
+        "request": {
+          "url": "https://postman-echo/get",
+          "method": "GET",
+          "description": "This is a sample GET Request"
+        }
+      }
+    ]
+  }
+}
+
+Place the JSON in https://jsonpathfinder.com/
+
+Create in Postman:
+- https://warped-star-612427.postman.co/workspace/Postman-Essentials-Workspace~7fcf506e-2dfa-4530-ba94-78a0a315a86b/request/2814220-d7134633-144c-4801-b8c4-bfa6deed5008
+  - Name: CreateCollection
+- Response:
+
+{
+    "collection": {
+        "id": "b02d977f-bd34-4a42-a192-94ccc520270c",
+        "name": "Sample Collection",
+        "uid": "2814220-b02d977f-bd34-4a42-a192-94ccc520270c"
+    }
+}
+
+I do not see a new Collection in Postman. Just the successful response.
+
+Ch. 131. Create POJO's.
+
+Based on the JSON described above a suitable set of classes needs to be set up in com.rest.entities.
+
+
+Ch. 132. Build Payload and Serialize.
+
