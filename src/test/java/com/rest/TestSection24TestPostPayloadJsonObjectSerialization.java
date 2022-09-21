@@ -35,7 +35,7 @@ public class TestSection24TestPostPayloadJsonObjectSerialization {
      * Properties defined in postman.
      */
     private final String X_API_KEY = "X-Api-Key";
-    private final String X_API_KEY_VALUE = "PMAK-60be82a8f120f500350530bd-5564f633c07f09b9472b464b32bbb43cc3";
+    private final String X_API_KEY_VALUE = "<X_API_KEY_VALUE>";
 
     /**
      * Local parameters
